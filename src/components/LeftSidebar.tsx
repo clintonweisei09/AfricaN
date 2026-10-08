@@ -5,6 +5,7 @@ import { FloatingCubeAd } from './FloatingCubeAd';
 import { FeaturedNewsSidebar } from './FeaturedNewsSidebar';
 import { FeaturedImagesSidebar } from './FeaturedImagesSidebar';
 import { useAuthor } from '../context/AuthorContext';
+import { resolveMediaUrl } from '../utils/media';
 
 interface LeftSidebarProps {
   onSelectUpdate: (articleId: string) => void;
@@ -323,7 +324,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
                 {item.imageUrl && (
                   <div className="w-12 h-12 rounded-md overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
                     <img
-                      src={item.imageUrl}
+                      src={resolveMediaUrl(item.imageUrl)}
                       alt={item.title}
                       loading="lazy"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform"
@@ -435,7 +436,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
                 {article.imageUrl && (
                   <div className="w-14 h-12 rounded-md overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
                     <img
-                      src={article.imageUrl}
+                      src={resolveMediaUrl(article.imageUrl)}
                       alt={article.title}
                       loading="lazy"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform"
@@ -531,7 +532,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
                 {article.imageUrl && (
                   <div className="w-14 h-12 rounded-md overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
                     <img
-                      src={article.imageUrl}
+                      src={resolveMediaUrl(article.imageUrl)}
                       alt={article.title}
                       loading="lazy"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform"
@@ -570,7 +571,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
                 {club.imageUrl && (
                   <div className="w-14 h-12 rounded-md overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
                     <img
-                      src={club.imageUrl}
+                      src={resolveMediaUrl(club.imageUrl)}
                       alt={club.clubName}
                       loading="lazy"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform"

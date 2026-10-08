@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Sparkles, RefreshCw, ChevronRight } from 'lucide-react';
 import { Article } from '../types';
 import { useAuthor } from '../context/AuthorContext';
+import { resolveMediaUrl } from '../utils/media';
 
 interface FeaturedNewsSidebarProps {
   onSelectArticle?: (article: Article) => void;
@@ -102,7 +103,7 @@ export const FeaturedNewsSidebar: React.FC<FeaturedNewsSidebarProps> = ({
               {post.imageUrl && (
                 <div className="w-14 h-12 rounded-md overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
                   <img
-                    src={post.imageUrl}
+                    src={resolveMediaUrl(post.imageUrl)}
                     alt={post.title}
                     loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform"

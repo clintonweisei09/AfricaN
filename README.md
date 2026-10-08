@@ -60,6 +60,8 @@ Open [http://localhost:3000](http://localhost:3000) or [http://localhost:5173](h
 npm run build
 ```
 
+Bundled images are stored in `src/assets/images`; production builds include them and resolve their URLs for the configured deployment base path. External image URLs and embedded data URLs remain supported.
+
 ---
 
 ## 📄 License

@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import { InPicturesItem } from '../types';
 import { useAuthor } from '../context/AuthorContext';
+import { resolveMediaUrl } from '../utils/media';
 
 export const InPicturesSection: React.FC = () => {
   const { inPicturesItems } = useAuthor();
@@ -96,7 +97,7 @@ export const InPicturesSection: React.FC = () => {
           {/* Main Photo Frame (Fixed Height: 350px) */}
           <div className="relative h-[348px] w-full rounded-xl overflow-hidden bg-slate-900 border border-slate-800 shadow-inner group">
             <img
-              src={currentItem.photoUrl}
+              src={resolveMediaUrl(currentItem.photoUrl)}
               alt={currentItem.photoTitle}
               className="w-full h-full object-cover transition-opacity duration-500 ease-in-out"
               loading="eager"
@@ -145,7 +146,7 @@ export const InPicturesSection: React.FC = () => {
                 title={item.photoTitle}
               >
                 <img
-                  src={item.photoUrl}
+                  src={resolveMediaUrl(item.photoUrl)}
                   alt={item.photoTitle}
                   className="w-full h-full object-cover"
                 />
@@ -178,7 +179,7 @@ export const InPicturesSection: React.FC = () => {
               className="relative h-[180px] w-full rounded-xl overflow-hidden bg-black border border-slate-700/80 group cursor-pointer shadow-lg"
             >
               <img
-                src={currentItem.photoUrl}
+                src={resolveMediaUrl(currentItem.photoUrl)}
                 alt={currentItem.videoTitle}
                 className="w-full h-full object-cover opacity-75 group-hover:scale-104 transition-transform duration-500"
               />
@@ -232,7 +233,7 @@ export const InPicturesSection: React.FC = () => {
             >
               <div className="w-10 h-7 rounded overflow-hidden bg-slate-800 shrink-0 border border-slate-700">
                 <img
-                  src={nextItem.photoUrl}
+                  src={resolveMediaUrl(nextItem.photoUrl)}
                   alt={nextItem.videoTitle}
                   className="w-full h-full object-cover"
                 />

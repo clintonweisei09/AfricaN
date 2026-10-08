@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { ArrowRight, ChevronLeft, ChevronRight, Clock, Edit3, Plus, Sliders } from 'lucide-react';
 import { Article, NewsCategory } from '../types';
 import { useAuthor } from '../context/AuthorContext';
+import { resolveMediaUrl } from '../utils/media';
 
 interface SectionBlockProps {
   title: string;
@@ -114,7 +115,7 @@ export const SectionBlock: React.FC<SectionBlockProps> = ({
           {/* Compact visual image container */}
           <div className="w-full sm:w-64 md:w-80 lg:w-96 h-44 sm:h-48 rounded-lg overflow-hidden bg-slate-100 relative shrink-0">
             <img
-              src={leadStory.imageUrl}
+              src={resolveMediaUrl(leadStory.imageUrl)}
               alt={leadStory.title}
               loading="lazy"
               className="w-full h-full object-cover group-hover:scale-104 transition-transform duration-300"
@@ -145,7 +146,7 @@ export const SectionBlock: React.FC<SectionBlockProps> = ({
               <div className="flex items-center gap-2">
                 {leadStory.author.avatar && (
                   <img
-                    src={leadStory.author.avatar}
+                    src={resolveMediaUrl(leadStory.author.avatar)}
                     alt={leadStory.author.name}
                     className="w-5 h-5 rounded-full object-cover border border-slate-300"
                   />
@@ -194,7 +195,7 @@ export const SectionBlock: React.FC<SectionBlockProps> = ({
               {/* Compact Thumbnail — NOT too big! */}
               <div className="w-full h-28 overflow-hidden bg-slate-100 relative">
                 <img
-                  src={story.imageUrl}
+                  src={resolveMediaUrl(story.imageUrl)}
                   alt={story.title}
                   loading="lazy"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"

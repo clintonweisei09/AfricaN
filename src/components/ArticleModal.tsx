@@ -4,6 +4,7 @@ import {
 } from 'lucide-react';
 import { Article, CommentItem } from '../types';
 import { useAuthor } from '../context/AuthorContext';
+import { resolveMediaUrl } from '../utils/media';
 
 interface ArticleModalProps {
   article: Article | null;
@@ -170,7 +171,7 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({
           <div className="flex flex-wrap items-center justify-between gap-4 py-4 border-y border-slate-200">
             <div className="flex items-center gap-3">
               <img
-                src={article.author.avatar}
+                src={resolveMediaUrl(article.author.avatar)}
                 alt={article.author.name}
                 referrerPolicy="no-referrer"
                 className="w-11 h-11 rounded-full object-cover border border-slate-300"
@@ -240,7 +241,7 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({
             <figure className="space-y-2">
               <div className="rounded-xl overflow-hidden border border-slate-200 bg-slate-100 aspect-16/9">
                 <img
-                  src={article.imageUrl}
+                  src={resolveMediaUrl(article.imageUrl)}
                   alt={article.title}
                   referrerPolicy="no-referrer"
                   className="w-full h-full object-cover"

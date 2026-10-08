@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Camera, MapPin, ChevronRight, RefreshCw, Eye } from 'lucide-react';
+import { resolveMediaUrl } from '../utils/media';
 
 interface FeaturedImageItem {
   id: string;
@@ -130,7 +131,7 @@ export const FeaturedImagesSidebar: React.FC<FeaturedImagesSidebarProps> = ({ on
           className="relative rounded-lg overflow-hidden bg-slate-900 border border-slate-200 aspect-16/10 group cursor-pointer"
         >
           <img
-            src={currentItem.imageUrl}
+            src={resolveMediaUrl(currentItem.imageUrl)}
             alt={currentItem.title}
             className={`w-full h-full object-cover transition-all duration-300 transform group-hover:scale-105 ${
               isFading ? 'opacity-30' : 'opacity-100'
@@ -177,7 +178,7 @@ export const FeaturedImagesSidebar: React.FC<FeaturedImagesSidebarProps> = ({ on
               }`}
             >
               <img
-                src={item.imageUrl}
+                src={resolveMediaUrl(item.imageUrl)}
                 alt={item.title}
                 className="w-full h-full object-cover"
               />

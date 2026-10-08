@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { resolveMediaUrl } from './utils/media';
 import { 
   TICKER_HEADLINES, 
   MAIN_SLIDER_ARTICLES
@@ -204,7 +205,7 @@ export default function App() {
                       {art.imageUrl && (
                         <div className="aspect-16/10 rounded-xl overflow-hidden bg-slate-100 relative">
                           <img
-                            src={art.imageUrl}
+                            src={resolveMediaUrl(art.imageUrl)}
                             alt={art.title}
                             loading="lazy"
                             className="w-full h-full object-cover group-hover:scale-104 transition-transform duration-300"
@@ -405,7 +406,7 @@ export default function App() {
 
                       <div className="w-full sm:w-48 h-28 rounded-xl bg-slate-900 overflow-hidden shrink-0 border border-white/20 shadow-md">
                         <img
-                          src="/src/assets/images/african_fintech_hub_1791232334696.jpg"
+                          src={resolveMediaUrl('/AfricaN/images/african_fintech_hub_1791232334696.jpg')}
                           alt="Sponsor"
                           loading="lazy"
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform"

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X, ExternalLink, Zap } from 'lucide-react';
+import { resolveMediaUrl } from '../utils/media';
 
 interface FloatingAdProps {
   isAdFreeMode: boolean;
@@ -37,7 +38,7 @@ export const FloatingAd: React.FC<FloatingAdProps> = ({
         <div className="p-3 space-y-2">
           <div className="aspect-16/9 rounded bg-slate-900 overflow-hidden relative border border-slate-200">
             <img
-              src="/src/assets/images/african_entertainment_awards_1791231296253.jpg"
+              src={resolveMediaUrl('/AfricaN/images/african_entertainment_awards_1791231296253.jpg')}
               alt="Sponsor Ad"
               loading="lazy"
               className="w-full h-full object-cover"

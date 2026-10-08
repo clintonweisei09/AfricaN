@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Pause, Play, ArrowRight, Bookmark, Edit3 } from 'lucide-react';
 import { Article } from '../types';
 import { useAuthor } from '../context/AuthorContext';
+import { resolveMediaUrl } from '../utils/media';
 
 interface MainSliderProps {
   sliderArticles: Article[];
@@ -58,7 +59,7 @@ export const MainSlider: React.FC<MainSliderProps> = ({
                 }`}
               >
                 <img
-                  src={article.imageUrl}
+                  src={resolveMediaUrl(article.imageUrl)}
                   alt={article.title}
                   loading={idx === 0 ? 'eager' : 'lazy'}
                   referrerPolicy="no-referrer"
@@ -176,7 +177,7 @@ export const MainSlider: React.FC<MainSliderProps> = ({
             >
               <div className="w-20 h-16 rounded overflow-hidden bg-slate-200 shrink-0 border border-slate-300">
                 <img
-                  src={story.imageUrl}
+                  src={resolveMediaUrl(story.imageUrl)}
                   alt={story.title}
                   loading="lazy"
                   referrerPolicy="no-referrer"

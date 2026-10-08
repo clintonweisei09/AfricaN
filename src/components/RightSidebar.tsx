@@ -5,6 +5,7 @@ import { CORRIDORS_OF_POWER_CASES, POPULAR_POSTS } from '../data/mockNewsData';
 import { AdBanner } from './AdBanner';
 import { FloatingCubeAd } from './FloatingCubeAd';
 import { useAuthor } from '../context/AuthorContext';
+import { resolveMediaUrl } from '../utils/media';
 
 interface RightSidebarProps {
   onSelectArticle: (article: Article) => void;
@@ -115,7 +116,7 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
               {story.imageUrl && (
                 <div className="w-16 h-14 rounded-md overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
                   <img
-                    src={story.imageUrl}
+                    src={resolveMediaUrl(story.imageUrl)}
                     alt={story.title}
                     loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform"
@@ -269,7 +270,7 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
                 {/* Thumbnail Image */}
                 <div className="w-18 h-18 rounded-lg overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
                   <img
-                    src={post.imageUrl}
+                    src={resolveMediaUrl(post.imageUrl)}
                     alt={post.title}
                     loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform"

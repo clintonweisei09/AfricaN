@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, Save, Edit3, Image, Tag, FileText, Check, Plus, Trash2, Clock, User, ShieldCheck } from 'lucide-react';
 import { Article, NewsCategory } from '../types';
 import { useAuthor } from '../context/AuthorContext';
+import { resolveMediaUrl } from '../utils/media';
 
 export const ArticleEditorModal: React.FC = () => {
   const {
@@ -322,7 +323,7 @@ export const ArticleEditorModal: React.FC = () => {
             {imageUrl && (
               <div className="h-32 w-full rounded-lg overflow-hidden bg-slate-200 border border-slate-300 mt-2 relative">
                 <img
-                  src={imageUrl}
+                  src={resolveMediaUrl(imageUrl)}
                   alt="Preview"
                   className="w-full h-full object-cover"
                 />

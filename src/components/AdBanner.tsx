@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ExternalLink, Sparkles, X, Zap } from 'lucide-react';
 import { AdUnit } from '../types';
+import { resolveMediaUrl } from '../utils/media';
 
 interface AdBannerProps {
   slot: 'leaderboard' | 'skyscraper' | 'companion' | 'mobile_sticky' | 'midpage';
@@ -175,7 +176,7 @@ export const AdBanner: React.FC<AdBannerProps> = ({
             {currentAd.imageUrl && (
               <div className="w-24 h-16 sm:w-32 sm:h-20 rounded-xl bg-slate-900 overflow-hidden shrink-0 border border-white/20 shadow-md">
                 <img
-                  src={currentAd.imageUrl}
+                  src={resolveMediaUrl(currentAd.imageUrl)}
                   alt={currentAd.sponsor}
                   loading="lazy"
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
@@ -245,7 +246,7 @@ export const AdBanner: React.FC<AdBannerProps> = ({
           {currentAd.imageUrl && (
             <div className="w-full aspect-16/9 rounded-xl bg-slate-900 overflow-hidden mb-2.5 border border-white/20 shadow-md">
               <img
-                src={currentAd.imageUrl}
+                src={resolveMediaUrl(currentAd.imageUrl)}
                 alt={currentAd.sponsor}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform"
               />
@@ -305,7 +306,7 @@ export const AdBanner: React.FC<AdBannerProps> = ({
           {currentAd.imageUrl && (
             <div className="w-full h-24 rounded-xl bg-slate-900 overflow-hidden mb-2.5 border border-white/20">
               <img
-                src={currentAd.imageUrl}
+                src={resolveMediaUrl(currentAd.imageUrl)}
                 alt={currentAd.sponsor}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform"
               />

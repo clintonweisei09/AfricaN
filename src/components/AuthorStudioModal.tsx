@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { useAuthor, MastheadStyleType } from '../context/AuthorContext';
 import { NewsCategory, Article, NewsTickerItem, ClubTrend, SidebarUpdateItem, CategoryConfig } from '../types';
+import { resolveMediaUrl } from '../utils/media';
 
 export const AuthorStudioModal: React.FC = () => {
   const { 
@@ -361,7 +362,7 @@ export const AuthorStudioModal: React.FC = () => {
                       {art.imageUrl && (
                         <div className="w-16 h-14 rounded-lg overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
                           <img
-                            src={art.imageUrl}
+                            src={resolveMediaUrl(art.imageUrl)}
                             alt={art.title}
                             className="w-full h-full object-cover"
                           />
