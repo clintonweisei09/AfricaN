@@ -6,6 +6,7 @@ import { AdBanner } from './AdBanner';
 import { FloatingCubeAd } from './FloatingCubeAd';
 import { useAuthor } from '../context/AuthorContext';
 import { resolveMediaUrl } from '../utils/media';
+import { LiveUpdatesSidebar } from './LiveUpdatesSidebar';
 
 interface RightSidebarProps {
   onSelectArticle: (article: Article) => void;
@@ -224,6 +225,8 @@ export const RightSidebar: React.FC<RightSidebarProps> = ({
         isAdFreeMode={isAdFreeMode}
         onOpenMonetization={onOpenMonetization}
       />
+
+      <LiveUpdatesSidebar onSelectUpdate={handleSelectById} />
 
       {/* 5. JUST BELOW THE 3D CUBE AD: POPULAR POSTS SIDEBAR (Enclosed in Red Just Like Corridors of Power, NO numbers!) */}
       <div className="border-2 border-red-600 bg-white rounded-xl overflow-hidden shadow-xs">

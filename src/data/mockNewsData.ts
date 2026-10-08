@@ -708,7 +708,7 @@ export const ALL_SECTIONS_ARTICLES: Article[] = [
     },
     "publishedAt": "2h ago",
     "readTime": "4 min read",
-    "imageUrl": "/src/assets/images/lead_story_finance_1791229298739.jpg",
+    "imageUrl": "/AfricaN/images/african_entertainment_awards_1791231296253.jpg",
     "imageCaption": "Curators unpack sacred royal bronzes at national museum pavilion.",
     "views": 92300,
     "commentsCount": 265,

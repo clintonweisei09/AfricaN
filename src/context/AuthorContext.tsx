@@ -261,7 +261,18 @@ export const AuthorProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [articles, setArticles] = useState<Article[]>(() => {
     try {
       const saved = localStorage.getItem('theafrican_articles_db');
-      if (saved) return JSON.parse(saved);
+      if (saved) {
+        const storedArticles = JSON.parse(saved) as Article[];
+        return storedArticles.map((article) =>
+          article.id === 'arts-7' &&
+          (!article.imageUrl || article.imageUrl.includes('lead_story_finance_1791229298739.jpg'))
+            ? {
+                ...article,
+                imageUrl: '/AfricaN/images/african_entertainment_awards_1791231296253.jpg'
+              }
+            : article
+        );
+      }
     } catch (e) {
       console.warn('Failed to load articles from localStorage', e);
     }

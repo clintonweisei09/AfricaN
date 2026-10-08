@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Zap, Clock, RefreshCw, Music, ChevronRight, Sparkles, ShieldAlert, FileText, Edit3, Plus } from 'lucide-react';
-import { SidebarUpdateItem, Article } from '../types';
+import { Music, ChevronRight, Sparkles, ShieldAlert, FileText, Edit3, Plus } from 'lucide-react';
+import { Article } from '../types';
 import { FloatingCubeAd } from './FloatingCubeAd';
 import { FeaturedNewsSidebar } from './FeaturedNewsSidebar';
 import { FeaturedImagesSidebar } from './FeaturedImagesSidebar';
@@ -172,11 +172,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
   isAdFreeMode,
   onOpenMonetization
 }) => {
-  const { articles, clubTrends, sidebarUpdates, isAuthor, openAuthorStudio, openArticleEditor, getCategorySectionTitle } = useAuthor();
-  const [freshUpdates, setFreshUpdates] = useState<SidebarUpdateItem[]>([]);
-  const [isRefreshing, setIsRefreshing] = useState(false);
-
-  const updates = [...freshUpdates, ...sidebarUpdates];
+  const { articles, clubTrends, isAuthor, openArticleEditor, getCategorySectionTitle } = useAuthor();
   const scandalArticles = articles.filter((a) => a.category === 'scandals');
   const clubMadnessArticles = articles.filter((a) => a.category === 'club-madness');
 
@@ -185,36 +181,6 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
 
   // Club Madness Scroll Ref & Timer: SCROLLS UP AFTER 5 SECONDS!
   const clubScrollContainerRef = useRef<HTMLDivElement>(null);
-
-  // 1. Auto-refresh Fast Updates every 5 seconds (Silent, NO seconds time count!)
-  useEffect(() => {
-    const timer = setInterval(() => {
-      triggerFastRefresh();
-    }, 5000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  const triggerFastRefresh = () => {
-    setIsRefreshing(true);
-    setTimeout(() => {
-      const freshUpdate: SidebarUpdateItem = {
-        id: `fresh-${Date.now()}`,
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        title: 'Special audit subcommittee summons regional revenue collector over digital platform levies',
-        category: 'Scandals',
-        tag: 'JUST IN',
-        badgeColor: 'bg-red-600',
-        articleId: 'scandal-tender-1',
-        isUrgent: true,
-        imageUrl: '/src/assets/images/african_politics_summit_1791231284594.jpg',
-        excerpt: 'Subcommittee questions discrepancy in cross-border e-commerce duty remittances.'
-      };
-
-      setFreshUpdates((prev) => [freshUpdate, ...prev.slice(0, 3)]);
-      setIsRefreshing(false);
-    }, 350);
-  };
 
   // 2. Club Madness: Scrolls up automatically after 5 seconds!
   useEffect(() => {
@@ -258,134 +224,12 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
   return (
     <aside className="w-full space-y-5 select-none">
       
-      {/* 1. SIDEBAR BLOCK 1: Fast Updates (Styled in signature Corridors of Power red enclosure!) */}
-      <div className="border-2 border-red-600 bg-white rounded-xl overflow-hidden shadow-xs">
-        
-        {/* Red Header Bar */}
-        <div className="bg-red-600 text-white px-3.5 py-2.5 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Zap className="w-4 h-4 text-yellow-300 fill-yellow-300" />
-            <h3 className="font-sans font-black text-sm uppercase tracking-wide text-white">
-              Fast Updates
-            </h3>
-          </div>
-          <div className="flex items-center gap-1.5">
-            {isAuthor && (
-              <button
-                onClick={() => openAuthorStudio('wire')}
-                className="bg-black/50 hover:bg-black/80 text-yellow-300 px-1.5 py-0.5 rounded text-[10px] font-bold flex items-center gap-0.5 transition-colors cursor-pointer"
-                title="Edit Wire Bulletins (Author)"
-              >
-                <Edit3 className="w-3 h-3 text-yellow-400" />
-                <span>Edit Wire</span>
-              </button>
-            )}
-            <span className="text-[9px] font-mono bg-black/40 px-1.5 py-0.5 rounded uppercase font-bold text-yellow-300">
-              Live Wire
-            </span>
-            <button
-              onClick={triggerFastRefresh}
-              disabled={isRefreshing}
-              className={`text-white p-1 hover:bg-red-700 rounded transition-colors ${
-                isRefreshing ? 'animate-spin' : ''
-              }`}
-              title="Refresh Fast Updates"
-            >
-              <RefreshCw className="w-3.5 h-3.5" />
-            </button>
-          </div>
-        </div>
-
-        {/* Subtitle */}
-        <div className="bg-red-50/80 px-3.5 py-1.5 border-b border-red-100 text-[10px] text-red-950 font-bold">
-          Continuous Real-Time Dispatches & News Desk Bulletins
-        </div>
-
-        {/* Content list with titles and images */}
-        <div className="p-3 space-y-3 divide-y divide-slate-100">
-          {updates.slice(0, 4).map((item, idx) => (
-            <div
-              key={item.id}
-              onClick={() => onSelectUpdate(item.articleId)}
-              className="pt-2.5 first:pt-0 cursor-pointer group text-left transition-all"
-            >
-              <div className="flex items-center justify-between text-[10px] mb-1">
-                <span className="font-mono font-bold text-red-600 flex items-center gap-1">
-                  <Clock className="w-3 h-3" />
-                  {item.timestamp}
-                </span>
-                <span className={`text-white text-[9px] font-bold px-1.5 py-0.2 rounded-xs uppercase ${idx === 0 ? 'bg-red-600 animate-pulse' : item.badgeColor || 'bg-slate-800'}`}>
-                  {idx === 0 ? 'NEW' : item.tag}
-                </span>
-              </div>
-
-              {/* Layout: Image + Title */}
-              <div className="flex gap-2.5 items-start">
-                {item.imageUrl && (
-                  <div className="w-12 h-12 rounded-md overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
-                    <img
-                      src={resolveMediaUrl(item.imageUrl)}
-                      alt={item.title}
-                      loading="lazy"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                    />
-                  </div>
-                )}
-
-                <div className="flex-1 min-w-0">
-                  <h4 className="text-xs font-bold text-slate-900 group-hover:text-red-600 transition-colors leading-snug line-clamp-2">
-                    {item.title}
-                  </h4>
-                  {item.excerpt && (
-                    <p className="text-[10px] text-slate-500 line-clamp-1 mt-0.5">
-                      {item.excerpt}
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="bg-slate-900 text-white px-3 py-1.5 text-center text-[10px] font-mono">
-          The AfricaN Live Wire · Real-Time Coverage
-        </div>
-      </div>
-
-      {/* 2. SPONSORED AD ON THE LEFT (With its OWN Vibrant Navy & Indigo Background!) */}
       {!isAdFreeMode && (
-        <div 
-          onClick={onOpenMonetization}
-          className="w-full rounded-2xl p-4 cursor-pointer text-white shadow-xl bg-gradient-to-br from-indigo-950 via-blue-950 to-slate-950 border-2 border-indigo-400/60 hover:border-yellow-400 transition-all select-none group"
-        >
-          <div className="flex items-center justify-between text-[10px] font-mono mb-2">
-            <span className="bg-indigo-500 text-white font-black uppercase px-2 py-0.5 rounded">
-              High-Speed Connectivity
-            </span>
-            <span className="text-indigo-300 font-bold">Sponsored</span>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-xl bg-indigo-900/60 border border-indigo-400/30 flex items-center justify-center text-xl shrink-0">
-              🛰️
-            </div>
-            <div className="min-w-0 flex-1">
-              <h4 className="font-bold text-xs text-white leading-tight group-hover:text-yellow-300 transition-colors">
-                AfriSat Enterprise Uplink
-              </h4>
-              <p className="text-[10px] text-indigo-200 line-clamp-2 mt-0.5">
-                Low-earth orbit broadband with guaranteed 99.99% uptime across 40 countries.
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-2.5 pt-2 border-t border-indigo-800/40 flex items-center justify-between">
-            <span className="text-[10px] font-mono text-indigo-300">Fast Deploy</span>
-            <span className="text-xs font-bold text-yellow-300 group-hover:underline flex items-center gap-1">
-              Request Uplink Kit →
-            </span>
-          </div>
-        </div>
+        <FloatingCubeAd
+          variant="cube"
+          isAdFreeMode={isAdFreeMode}
+          onOpenMonetization={onOpenMonetization}
+        />
       )}
 
       {/* 3. SCANDALS & WHISTLEBLOWER INVESTIGATIONS SIDEBAR

@@ -4,7 +4,7 @@ import { ExternalLink, Sparkles, ChevronRight } from 'lucide-react';
 interface FloatingCubeAdProps {
   isAdFreeMode: boolean;
   onOpenMonetization: () => void;
-  variant?: 'luxury' | 'nightlife' | 'digital3d';
+  variant?: 'luxury' | 'nightlife' | 'digital3d' | 'cube';
   className?: string;
 }
 
@@ -233,17 +233,25 @@ export const FloatingCubeAd: React.FC<FloatingCubeAdProps> = ({
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFading, setIsFading] = useState(false);
+  const [cubeRotation, setCubeRotation] = useState(0);
 
   const slides = 
     variant === 'nightlife' 
       ? NIGHTLIFE_SLIDES 
-      : variant === 'digital3d' 
-      ? DIGITAL_3D_SLIDES 
-      : LUXURY_SLIDES;
+      : variant === 'luxury'
+        ? LUXURY_SLIDES
+        : DIGITAL_3D_SLIDES;
 
-  // Smoothly changes ads every 4 seconds without any 3D vertical stretching or distortion!
   useEffect(() => {
     if (isAdFreeMode) return;
+
+    if (variant === 'cube') {
+      const timer = window.setInterval(() => {
+        setCubeRotation((rotation) => rotation + 90);
+      }, 3500);
+
+      return () => window.clearInterval(timer);
+    }
 
     const timer = setInterval(() => {
       setIsFading(true);
@@ -254,9 +262,91 @@ export const FloatingCubeAd: React.FC<FloatingCubeAdProps> = ({
     }, 4000);
 
     return () => clearInterval(timer);
-  }, [isAdFreeMode, slides.length]);
+  }, [isAdFreeMode, slides.length, variant]);
 
   if (isAdFreeMode) return null;
+
+  if (variant === 'cube') {
+    const faceTransforms = [
+      'translateZ(105px)',
+      'rotateY(-90deg) translateZ(105px)',
+      'rotateY(180deg) translateZ(105px)',
+      'rotateY(90deg) translateZ(105px)'
+    ];
+
+    return (
+      <div className={`w-full select-none ${className}`}>
+        <div className="mb-1 flex items-center justify-between px-1 text-[10px] uppercase tracking-wider">
+          <span className="flex items-center gap-1 font-bold text-red-600">
+            <Sparkles className="h-3 w-3" />
+            Sponsored · 4D Ad Cube
+          </span>
+          <span className="font-mono text-slate-400">360°</span>
+        </div>
+
+        <button
+          type="button"
+          onClick={onOpenMonetization}
+          aria-label="Explore rotating sponsored ads"
+          className="group relative block w-full overflow-hidden rounded-2xl border-2 border-indigo-400/60 bg-slate-950 py-3 text-left text-white shadow-xl transition-colors hover:border-yellow-400"
+        >
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.2),transparent_70%)]" />
+          <div className="relative mx-auto aspect-square w-full max-w-[210px]" style={{ perspective: '900px' }}>
+            <div
+              className="absolute inset-0"
+              style={{
+                transformStyle: 'preserve-3d',
+                transform: `rotateX(-10deg) rotateY(${cubeRotation}deg)`,
+                transition: 'transform 1s cubic-bezier(0.2, 0.75, 0.25, 1)'
+              }}
+            >
+              {DIGITAL_3D_SLIDES.map((slide, index) => (
+                <div
+                  key={slide.id}
+                  className={`absolute inset-0 flex flex-col justify-between overflow-hidden rounded-xl border ${slide.borderColor} bg-gradient-to-br ${slide.bgGradient} p-3 shadow-2xl`}
+                  style={{
+                    backfaceVisibility: 'hidden',
+                    transform: faceTransforms[index],
+                    boxShadow: 'inset 0 0 28px rgba(255,255,255,0.08), 0 12px 30px rgba(0,0,0,0.35)'
+                  }}
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <span className={`rounded px-1.5 py-0.5 font-mono text-[8px] font-black uppercase ${slide.badgeBg}`}>
+                      {slide.category}
+                    </span>
+                    <span className="text-xl drop-shadow-lg">{slide.icon}</span>
+                  </div>
+                  <div>
+                    <h4 className="font-serif text-sm font-black leading-tight text-white">
+                      {slide.sponsor}
+                    </h4>
+                    <p className="mt-1 line-clamp-2 text-[10px] leading-snug text-slate-200">
+                      {slide.tagline}
+                    </p>
+                  </div>
+                  <div className="border-t border-white/20 pt-1.5 text-[9px] font-bold text-yellow-300">
+                    {slide.ctaText} <ChevronRight className="inline h-3 w-3" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="relative mt-2 flex items-center justify-center gap-1.5">
+            {DIGITAL_3D_SLIDES.map((slide, index) => (
+              <span
+                key={slide.id}
+                className={`h-1.5 rounded-full transition-all duration-500 ${
+                  index === ((DIGITAL_3D_SLIDES.length - (cubeRotation / 90) % DIGITAL_3D_SLIDES.length) % DIGITAL_3D_SLIDES.length)
+                    ? 'w-5 bg-yellow-400'
+                    : 'w-1.5 bg-white/30'
+                }`}
+              />
+            ))}
+          </div>
+        </button>
+      </div>
+    );
+  }
 
   const currentSlide = slides[currentIndex];
 
