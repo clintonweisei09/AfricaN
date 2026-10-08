@@ -1,0 +1,17 @@
+# Robots.txt for AfricaN
+User-agent: *
+Allow: /
+
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-News
+Allow: /
+
+User-agent: AdsBot-Google
+Allow: /
+
+Sitemap: https://theafrican.news/sitemap.xml

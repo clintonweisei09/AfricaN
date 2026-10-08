@@ -1,0 +1,6 @@
+{
+  "name": "The Chronicle Dispatch - Global News & Financial Markets",
+  "description": "High-impact monetized digital broadsheet with live financial tickers, real-time wire updates, multi-column editorial layout, and responsive mobile architecture.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
