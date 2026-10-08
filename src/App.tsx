@@ -123,7 +123,7 @@ export default function App() {
       </div>
 
       {/* 4. UPPER SECTION: Three-Column Layout with Sidebars
-          - Left Sidebar: Fast Updates + Sponsored Ad + Club Madness (scrolls 5s) + 3D Ad Cube
+          - Left Sidebar: Club Madness + sponsored creative + Scandals & Whistleblowers
           - Center Column: Top Stories + Politics & Governance + [1 Ad: AnimatedFlashAd] + Scandals & Whistleblowers
           - Right Sidebar: Most Read + Companion ad + CORRIDORS OF POWER + 3D Ad Cube + Popular Posts
       */}
@@ -275,7 +275,7 @@ export default function App() {
             {/* Top 3-Column Grid with Left Sidebar, Center Hero & Politics & Scandals, and Right Sidebar */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
               
-              {/* LEFT SIDEBAR (Sticky: 4D Sponsored Cube, Club Madness, Scandals, and Features) */}
+              {/* LEFT SIDEBAR (Sticky: Club Madness, Scandals, and Features) */}
               <div className="hidden lg:block lg:col-span-3 sticky top-20 self-start space-y-6">
                 <LeftSidebar
                   onSelectUpdate={handleSelectArticleById}

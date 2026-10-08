@@ -223,14 +223,6 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
 
   return (
     <aside className="w-full space-y-5 select-none">
-      
-      {!isAdFreeMode && (
-        <FloatingCubeAd
-          variant="cube"
-          isAdFreeMode={isAdFreeMode}
-          onOpenMonetization={onOpenMonetization}
-        />
-      )}
 
       {/* 3. SCANDALS & WHISTLEBLOWER INVESTIGATIONS SIDEBAR
           - As explicitly requested: "the section of scandals remove it and place it as a sidebar on the left just below the add"
